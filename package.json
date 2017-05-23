@@ -1,0 +1,20 @@
+{
+  "name": "soa-demo-user",
+  "version": "1.0.0",
+  "description": "",
+  "main": "service.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "Jason Waag",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "pg": "^6.1.5",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.30.4",
+    "soa-demo-service": "file:../soa-demo-service",
+    "soa-demo-token": "file:../soa-demo-token"
+  }
+}
