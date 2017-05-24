@@ -9,20 +9,20 @@ Use `npm start` to start the service.  The app can be directly deployed to Herok
 ### Messages
 
 * Creating a new user:
-** Request:  `{"role":"user", "cmd":"add", "username":"jaw", "password":"12345"}` 
-** Response: `{"user":{"userId":1,"username":"jaw"}}`
-** Response: `{"error":"User jaw already exists!"}`
-** Successfully creating a new user publishes an "addUser" event which includes the userId and username.
+  * Request:  `{"role":"user", "cmd":"add", "username":"jaw", "password":"12345"}` 
+  * Response: `{"user":{"userId":1,"username":"jaw"}}`
+  * Response: `{"error":"User jaw already exists!"}`
+  * Successfully creating a new user publishes an "addUser" event which includes the userId and username.
 * Authentication:
-** Request:  `{"role":"user", "cmd":"authn", "username":"jaw", "password":"12345"}`
-** Response: `{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYnV5ZXIxIiwiaWF0IjoxNDk1MTMzNjA0fQ.gZG5pgd-xdla9flT9x_94h_ZdP44iBTWi3iVLrMugIA"}`
-** Response: `{"error":"Invalid Username or Password."}`
+  * Request:  `{"role":"user", "cmd":"authn", "username":"jaw", "password":"12345"}`
+  * Response: `{"token":"eyJhbG...VLrMugIA"}`
+  * Response: `{"error":"Invalid Username or Password."}`
 
 ### Configuration
 
 All configuration happens in environment variables.
 
-* `PORT: The port that the app listens on.
+* `PORT`: The port that the app listens on.
 * `DATABASE_URL`: The URL of the PostgreSQL database instance.
 * `CLIENTS`: Other services the app may connect to.  `[listing,bid]`
 * `listing.ADDR`: Port or hostname of the listing service.
