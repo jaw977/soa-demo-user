@@ -1,9 +1,11 @@
 const User = require('./model.js');
 const bcrypt = require('bcryptjs');
 const authToken = require('soa-demo-token');
-const Service = require('soa-demo-service');
+const Service = require('soa-demo-service-amqp');
 
-async function add({username, password},{service}) {
+const service = new Service('user');
+
+service.add('cmd:add', async ({username, password}) => {
 	const oldUser = await User.findOne({where:{username}});
 	if (oldUser) return {error:`User ${username} already exists!`};
 	const salt = await bcrypt.genSalt(10);
@@ -12,9 +14,9 @@ async function add({username, password},{service}) {
 	const userId = user.userId;
 	service.publish('addUser', {userId, username});
 	return {user:{userId, username}};
-}
+});
 
-async function authn({username, password}) {
+service.add('cmd:authn', async ({username, password}) => {
 	const user = await User.findOne({where:{username}});
 	const error = {error:"Invalid Username or Password."};
 	if (! user) return error;
@@ -22,15 +24,10 @@ async function authn({username, password}) {
 	if (! correct) return error;
 	const token = authToken.create({userId:user.userId, username:user.username});
 	return {userId:user.userId, token};
-}
+});
 
-async function verify({token}) {
+service.add('cmd:verify', async ({token}) => {
 	return authToken.verify(token) || {};
-}
-
-const service = new Service('user');
-service.add('role:user,cmd:add', add);
-service.add('role:user,cmd:authn', authn);
-service.add('role:user,cmd:verify', verify);
+});
 
 module.exports = service;
