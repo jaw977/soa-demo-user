@@ -7,7 +7,7 @@
   },
   "main": "service.js",
   "scripts": {
-    "start": "node service.js --listen",
+    "start": "node service.js",
     "test": "node test.js"
   },
   "author": "Jason Waag",
